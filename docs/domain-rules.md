@@ -3,7 +3,7 @@
 ## Reglas de negocio para la 
 1. Solo puede asignarse un pedido a un delivery
 2. No puede haber mas de un usuario con el mismo nombre
-3. Para asignar nuevos pedidos el delivery debe haber despachado todos los pedidos asignados o haber marcado como cancelados los pedidos que no pudo completar. (Reasignación) (revisar logica)
+3. Para asignar nuevos pedidos el delivery debe haber despachado todos los pedidos asignados o el ADMIN debe haber marcado como cancelados los pedidos que no pudo completar.
 4. Los pedidos en estado de asigando, in_progress o deliver no pueden ser modificados.
  
 ## Reglas de order

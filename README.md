@@ -39,29 +39,29 @@ deliveryhub-backend/
 │   │   │   └── com/
 │   │   │       └── deliveryhub/
 │   │   │           ├── domain/                 <-- Capa de Dominio (Java Puro)
-│   │   │           │   ├── model/              <-- Pedido, Usuario, Direccion, EstadoPedido, RefreshToken
+│   │   │           │   ├── model/              <-- Order, User, Address, RefreshToken
+│   │   │           │   ├── enums/              <-- OrderStatus, UserRole
 │   │   │           │   └── exception/          <-- Excepciones de negocio (DomainExceptions, RefreshTokenExpiredException)
-│   │   │           │
+│   │   │           │|
 │   │   │           ├── application/            <-- Capa de Aplicación
 │   │   │           │   ├── usecase/            <-- Casos de uso (Orquestadores de la lógica)
-│   │   │           │   │   ├── CrearPedidoUseCase.java
-│   │   │           │   │   ├── AsignarLotePedidoUseCase.java
-│   │   │           │   │   ├── ActualizarEstadoPedidoUseCase.java
+│   │   │           │   │   ├── CreateOrderUseCase.java
+│   │   │           │   │   ├── AssignOrderUseCase.java
+│   │   │           │   │   ├── UpdateOrderStatusUseCase.java
 │   │   │           │   │   └── RefreshSessionUseCase.java
 │   │   │           │   └── port/               <-- Puertos (Interfaces de entrada/salida)
 │   │   │           │       ├── input/          <-- Interfaces que llaman los controladores
 │   │   │           │       └── output/         <-- Interfaces que implementa la infraestructura (ej: RefreshTokenRepositoryPort)
-│   │   │           │
+│   │   │           │   └── dto/                <-- DTOs Request / Response
+│   │   │           │   └── mapper/             <-- Mappers DTO -> Domain y viceversa (Logica no MapStruct)
 │   │   │           ├── presentation/           <-- Capa de Presentación (Adaptadores de Entrada)
-│   │   │           │   ├── controller/         <-- RestControllers (AuthController, PedidoController) y MessageMapping
-│   │   │           │   ├── dto/                <-- Request/Response DTOs (LoginRequest, TokenResponse)
-│   │   │           │   ├── mapper/             <-- MapStruct mappers
-│   │   │           │   └── exception/          <-- ExceptionHandler global
+│   │   │           │   ├── controller/         <-- RestControllers (AuthController, OrderController) y MessageMapping
 │   │   │           │
 │   │   │           └── infrastructure/         <-- Capa de Infraestructura (Adaptadores de Salida)
 │   │   │               ├── adapter/            <-- Implementación de repositorios (JpaRefreshTokenRepository) y servicios externos
 │   │   │               ├── config/             <-- SecurityConfig, WebSocketConfig, AppConfig
 │   │   │               └── entity/             <-- Entidades JPA para PostgreSQL (RefreshTokenEntity)
+│   │   │               └── exception/          <-- ExceptionHandler global del backend 
 │   │   └── resources/
 │   │       ├── db/
 │   │       │   └── migration/                  <-- Migraciones SQL de Flyway (V1__init.sql, V2__create_refresh_tokens.sql)
@@ -79,23 +79,23 @@ El ciclo de vida de un pedido está estrictamente validado en la capa de dominio
 
 ```mermaid
 stateDiagram-v2
-    [*] --> PENDIENTE : Creado por ADMIN (TEMPORAL, LUEGO DEBERA SER EL USUARIO QUIEN LO CREE)
-    PENDIENTE --> ASIGNADO : ADMIN asigna repartidor (repartidorId != null)
-    ASIGNADO --> EN_CURSO : DELIVERY inicia viaje (ownership verificado)
-    EN_CURSO --> ENTREGADO : DELIVERY confirma entrega
+    [*] --> PENDING : Creado por ADMIN
+    PENDING --> ASSIGNED : ADMIN asigna repartidor (repartidorId != null)
+    ASSIGNED --> IN_PROGRESS : DELIVERY inicia viaje (ownership verificado)
+    IN_PROGRESS --> DELIVERED : DELIVERY confirma entrega
     
-    PENDIENTE --> CANCELADO : Solo ADMIN
-    ASIGNADO --> CANCELADO : Solo ADMIN
-    EN_CURSO --> CANCELADO : Solo ADMIN
+    PENDING --> CANCELLED : Solo ADMIN
+    ASSIGNED --> CANCELLED : Solo ADMIN
+    IN_PROGRESS --> CANCELLED : Solo ADMIN
     
-    ENTREGADO --> [*]
-    CANCELADO --> [*]
+    DELIVERED --> [*]
+    CANCELLED --> [*]
 ```
 
 ### Reglas de Negocio Relacionadas:
-- **Transición Secuencial**: No se permiten saltos (ej. `PENDIENTE` -> `ENTREGADO`).
-- **Irrevertible**: Una vez que un pedido está en estado `ENTREGADO` o `CANCELADO`, no se puede volver a un estado anterior.
-- **Asignación Única**: Solo se puede asignar un repartidor si el pedido está en estado `PENDIENTE`.
+- **Transición Secuencial**: No se permiten saltos (ej. `PENDING` -> `DELIVERED`).
+- **Irrevertible**: Una vez que un pedido está en estado `DELIVERED` o `CANCELLED`, no se puede volver a un estado anterior.
+- **Asignación Única**: Solo se puede asignar un repartidor si el pedido está en estado `PENDING`.
 - **Ownership de Delivery**: Un usuario con rol `DELIVERY` solo puede modificar el estado de pedidos que tenga asignados (`repartidorId == usuario_autenticado.id`).
 
 ---
@@ -134,11 +134,11 @@ sequenceDiagram
 CREATE TABLE refresh_tokens (
     id UUID PRIMARY KEY,
     token VARCHAR(255) UNIQUE NOT NULL,
-    user_id UUID NOT NULL REFERENCES usuarios(id) ON DELETE CASCADE,
+    user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     expiry_date TIMESTAMP NOT NULL,
     revoked BOOLEAN NOT NULL DEFAULT FALSE,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES usuarios(id)
+    FOREIGN KEY (user_id) REFERENCES users(id)
 );
 ```
 
@@ -152,9 +152,9 @@ CREATE TABLE refresh_tokens (
 ---
 
 ### Control de Acceso por Roles (Endpoints de Negocio)
-- `POST /api/pedidos`: Acceso restringido a `ADMIN`.
-- `PUT /api/pedidos/{id}/asignar`: Acceso restringido a `ADMIN`.
-- `PATCH /api/pedidos/{id}/estado`:
+- `POST /api/orders`: Acceso restringido a `ADMIN`.
+- `PUT /api/orders/{id}/assign`: Acceso restringido a `ADMIN`.
+- `PATCH /api/orders/{id}/status`:
   - Si el rol es `DELIVERY`, se valida en el caso de uso que sea el dueño asignado del pedido.
   - Si el rol es `ADMIN`, permite transiciones administrativas o cancelaciones directas.
 
@@ -166,8 +166,8 @@ Para evitar el *polling* constante y garantizar una óptima experiencia de usuar
 
 - **Handshake Autenticado**: El handshake inicial del WebSocket intercepta la petición y valida el JWT enviado en los headers o query params.
 - **Canales de Mensajería (Destinations)**:
-  - `/topic/admin/pedidos`: Canal público para administradores. Notifica cambios de estado de cualquier pedido y geolocalizaciones en tiempo real de todos los repartidores activos.
-  - `/user/{repartidorId}/pedidos`: Canal privado para cada repartidor. Notifica la asignación de nuevos pedidos o cancelaciones directamente a su dispositivo.
+  - `/topic/admin/orders`: Canal público para administradores. Notifica cambios de estado de cualquier pedido y geolocalizaciones en tiempo real de todos los repartidores activos.
+  - `/user/{userId}/orders`: Canal privado para cada repartidor. Notifica la asignación de nuevos pedidos o cancelaciones directamente a su dispositivo.
 
 ---
 
@@ -176,9 +176,9 @@ Para evitar el *polling* constante y garantizar una óptima experiencia de usuar
 La persistencia de datos está manejada por PostgreSQL. Flyway se encarga del versionado y migración de esquemas.
 
 ### Tablas Principales:
-1. **`usuarios`**: Almacena credenciales, hash de contraseña (BCrypt), nombre y rol (`ADMIN`, `DELIVERY`).
-2. **`pedidos`**: Registra la descripción del pedido, el estado actual (`PENDIENTE`, `ASIGNADO`, `EN_CURSO`, `ENTREGADO`, `CANCELADO`), timestamps de creación/modificación, monto y referencias de clave foránea.
-3. **`direcciones`**: Almacena calle, número, latitud y longitud. Adicionalmente, cuenta con el campo geográfico adecuado para escalar a PostGIS en iteraciones post-MVP.
+1. **`users`**: Almacena credenciales, hash de contraseña (BCrypt), nombre y rol (`ADMIN`, `DELIVERY`).
+2. **`orders`**: Registra la descripción del pedido, el estado actual (`PENDING`, `ASSIGNED`, `IN_PROGRESS`, `DELIVERED`, `CANCELLED`), timestamps de creación/modificación, monto y referencias de clave foránea.
+3. **`addresses`**: Almacena calle, número, latitud y longitud. Adicionalmente, cuenta con el campo geográfico adecuado para escalar a PostGIS en iteraciones post-MVP.
 
 ---
 
