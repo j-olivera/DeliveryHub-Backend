@@ -79,7 +79,7 @@ El ciclo de vida de un pedido está estrictamente validado en la capa de dominio
 
 ```mermaid
 stateDiagram-v2
-    [*] --> PENDIENTE : Creado por ADMIN
+    [*] --> PENDIENTE : Creado por ADMIN (TEMPORAL, LUEGO DEBERA SER EL USUARIO QUIEN LO CREE)
     PENDIENTE --> ASIGNADO : ADMIN asigna repartidor (repartidorId != null)
     ASIGNADO --> EN_CURSO : DELIVERY inicia viaje (ownership verificado)
     EN_CURSO --> ENTREGADO : DELIVERY confirma entrega
