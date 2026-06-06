@@ -1,0 +1,21 @@
+project: deliveryHub-backend
+stack:
+  language: Java 21
+  framework: Spring Boot 4.0.6
+  build_tool: Maven
+  database: PostgreSQL, H2
+  migrations: Flyway
+testing:
+  runner: ./mvnw test
+  framework: JUnit 5
+  strict_tdd: true
+  layers:
+    - unit
+    - integration
+  capabilities:
+    - spring-boot-test
+    - mockito
+    - assertj
+persistence:
+  mode: hybrid
+  topic_key: sdd-init/deliveryHub-backend

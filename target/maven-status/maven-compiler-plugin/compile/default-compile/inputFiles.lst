@@ -1,0 +1,7 @@
+/home/j-olivera/Projects/DeliveryHub/deliveryHub-backend/src/main/java/com/deliveryhub/Application.java
+/home/j-olivera/Projects/DeliveryHub/deliveryHub-backend/src/main/java/com/deliveryhub/domain/enums/OrderStatus.java
+/home/j-olivera/Projects/DeliveryHub/deliveryHub-backend/src/main/java/com/deliveryhub/domain/enums/UserRole.java
+/home/j-olivera/Projects/DeliveryHub/deliveryHub-backend/src/main/java/com/deliveryhub/domain/exception/InvalidStatusTransitionException.java
+/home/j-olivera/Projects/DeliveryHub/deliveryHub-backend/src/main/java/com/deliveryhub/domain/exception/UnauthorizedTransitionException.java
+/home/j-olivera/Projects/DeliveryHub/deliveryHub-backend/src/main/java/com/deliveryhub/domain/model/Address.java
+/home/j-olivera/Projects/DeliveryHub/deliveryHub-backend/src/main/java/com/deliveryhub/domain/model/Order.java

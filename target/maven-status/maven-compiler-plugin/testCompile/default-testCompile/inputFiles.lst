@@ -1,0 +1,7 @@
+/home/j-olivera/Projects/DeliveryHub/deliveryHub-backend/src/test/java/com/deliveryhub/ApplicationTests.java
+/home/j-olivera/Projects/DeliveryHub/deliveryHub-backend/src/test/java/com/deliveryhub/domain/enums/OrderStatusTest.java
+/home/j-olivera/Projects/DeliveryHub/deliveryHub-backend/src/test/java/com/deliveryhub/domain/enums/UserRoleTest.java
+/home/j-olivera/Projects/DeliveryHub/deliveryHub-backend/src/test/java/com/deliveryhub/domain/exception/DomainExceptionsTest.java
+/home/j-olivera/Projects/DeliveryHub/deliveryHub-backend/src/test/java/com/deliveryhub/domain/model/AddressTest.java
+/home/j-olivera/Projects/DeliveryHub/deliveryHub-backend/src/test/java/com/deliveryhub/domain/model/OrderTest.java
+/home/j-olivera/Projects/DeliveryHub/deliveryHub-backend/src/test/java/com/deliveryhub/infrastructure/config/YamlConfigTests.java
