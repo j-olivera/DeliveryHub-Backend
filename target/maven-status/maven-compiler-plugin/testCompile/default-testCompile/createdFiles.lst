@@ -1,7 +1,12 @@
+com/deliveryhub/domain/model/AddressTest.class
+com/deliveryhub/domain/exception/DomainValidationExceptionTest.class
+com/deliveryhub/presentation/rest/UserControllerTest.class
+com/deliveryhub/domain/exception/DomainExceptionsTest.class
+com/deliveryhub/ApplicationTests.class
+com/deliveryhub/infrastructure/persistence/UserRepositoryAdapterTest.class
+com/deliveryhub/application/usecase/RegisterUserUseCaseTest.class
 com/deliveryhub/domain/enums/OrderStatusTest.class
 com/deliveryhub/domain/enums/UserRoleTest.class
-com/deliveryhub/domain/model/AddressTest.class
+com/deliveryhub/domain/model/UserTest.class
 com/deliveryhub/domain/model/OrderTest.class
-com/deliveryhub/domain/exception/DomainExceptionsTest.class
 com/deliveryhub/infrastructure/config/YamlConfigTests.class
-com/deliveryhub/ApplicationTests.class
