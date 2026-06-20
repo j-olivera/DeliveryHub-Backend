@@ -3,13 +3,13 @@ package com.deliveryhub.infrastructure.persistence;
 import com.deliveryhub.domain.enums.UserRole;
 import com.deliveryhub.domain.model.User;
 import com.deliveryhub.infrastructure.mapper.UserMapper;
-import com.deliveryhub.infrastructure.persistence.entity.UserEntity;
+import com.deliveryhub.infrastructure.entity.user.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
-
+import com.deliveryhub.infrastructure.adapter.UserRepositoryAdapter;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;

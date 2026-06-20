@@ -1,7 +1,7 @@
 package com.deliveryhub.infrastructure.mapper;
 
 import com.deliveryhub.domain.model.User;
-import com.deliveryhub.infrastructure.persistence.entity.UserEntity;
+import com.deliveryhub.infrastructure.entity.user.*;
 import org.springframework.stereotype.Component;
 
 /**

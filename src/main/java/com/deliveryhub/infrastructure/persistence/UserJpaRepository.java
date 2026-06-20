@@ -1,6 +1,6 @@
 package com.deliveryhub.infrastructure.persistence;
 
-import com.deliveryhub.infrastructure.persistence.entity.UserEntity;
+import com.deliveryhub.infrastructure.entity.user.*;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.UUID;
 

@@ -1,5 +1,4 @@
-package com.deliveryhub.infrastructure.persistence.entity;
-
+package com.deliveryhub.infrastructure.entity.user;
 import com.deliveryhub.domain.enums.UserRole;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;

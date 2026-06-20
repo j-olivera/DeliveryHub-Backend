@@ -1,10 +1,11 @@
-package com.deliveryhub.infrastructure.persistence;
+package com.deliveryhub.infrastructure.adapter;
 
 import com.deliveryhub.application.port.out.UserRepositoryPort;
 import com.deliveryhub.domain.model.User;
 import com.deliveryhub.infrastructure.mapper.UserMapper;
-import com.deliveryhub.infrastructure.persistence.entity.UserEntity;
+import com.deliveryhub.infrastructure.entity.user.*;
 import org.springframework.stereotype.Repository;
+import com.deliveryhub.infrastructure.persistence.UserJpaRepository;
 
 /**
  * Adaptador de persistencia para el repositorio de usuarios.
