@@ -60,4 +60,17 @@ public class GlobalExceptionHandler {
         ErrorResponse error = new ErrorResponse(ex.getMessage(), LocalDateTime.now());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
+
+    /**
+     * Maneja excepciones de credenciales inválidas.
+     * Retorna un estado HTTP 401 Unauthorized junto con un DTO ErrorResponse.
+     *
+     * @param ex excepción capturada
+     * @return respuesta de error formateada con código HTTP 401
+     */
+    @ExceptionHandler(com.deliveryhub.domain.exception.InvalidCredentialsException.class)
+    public ResponseEntity<ErrorResponse> handleInvalidCredentialsException(com.deliveryhub.domain.exception.InvalidCredentialsException ex) {
+        ErrorResponse error = new ErrorResponse(ex.getMessage(), LocalDateTime.now());
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(error);
+    }
 }

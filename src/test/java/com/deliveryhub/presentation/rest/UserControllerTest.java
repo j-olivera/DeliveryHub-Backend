@@ -24,8 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(
-    controllers = UserController.class,
-    excludeAutoConfiguration = {SecurityAutoConfiguration.class, UserDetailsServiceAutoConfiguration.class}
+    controllers = UserController.class
 )
 @AutoConfigureMockMvc(addFilters = false)
 class UserControllerTest {
@@ -37,6 +36,15 @@ class UserControllerTest {
 
     @MockitoBean
     private RegisterUserUseCase registerUserUseCase;
+
+    @MockitoBean
+    private com.deliveryhub.infrastructure.security.JwtUtils jwtUtils;
+
+    @MockitoBean
+    private org.springframework.security.core.userdetails.UserDetailsService userDetailsService;
+
+    @MockitoBean
+    private org.springframework.security.crypto.password.PasswordEncoder passwordEncoder;
 
     @Test
     void registerUser_whenRequestIsValid_shouldReturn201AndCreatedUser() throws Exception {

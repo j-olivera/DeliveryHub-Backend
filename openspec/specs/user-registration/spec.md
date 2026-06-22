@@ -6,7 +6,7 @@ Defines the application-level contract and workflow for registering new users, v
 ## Requirements
 
 ### Requirement: Register User Flow
-The system MUST expose a REST endpoint at `POST /api/v1/users` to register a user. It MUST accept a JSON payload with name, email, password, and role. The request MUST be validated, and if valid, delegated to the `RegisterUserUseCase` interface. Upon success, the system MUST return HTTP status `201 Created` with a `UserResponse` body containing the ID, name, email, and role.
+The system MUST expose a REST endpoint at `POST /api/v1/users` to register a user. It MUST accept a JSON payload with name, email, password, and role. The request MUST be validated, and if valid, delegated to the `RegisterUserUseCase` interface. Upon success, the system MUST return HTTP status `201 Created` with a `UserResponse` body containing the ID, name, email, and role. The password MUST be hashed using BCrypt before persistence in the database.
 
 #### Scenario: Successful Registration
 - GIVEN a valid HTTP request payload with name "Alice", email "alice@example.com", password "pwd123", and role "CUSTOMER"
@@ -14,7 +14,8 @@ The system MUST expose a REST endpoint at `POST /api/v1/users` to register a use
 - WHEN a POST request is sent to "/api/v1/users"
 - THEN the system MUST return status code 201 Created
 - AND the response body MUST contain the created user details (id, name, email, role)
-- AND the password MUST NOT be returned in the response.
+- AND the password MUST NOT be returned in the response
+- AND the password stored in the database MUST be hashed using BCrypt.
 
 ### Requirement: Registration Uniqueness
 The system MUST verify that the email and name are unique prior to user persistence. If the email or name is already associated with an existing user, the registration endpoint MUST return HTTP status `409 Conflict` containing a standardized error response.

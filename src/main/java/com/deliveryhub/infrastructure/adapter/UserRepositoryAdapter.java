@@ -44,4 +44,10 @@ public class UserRepositoryAdapter implements UserRepositoryPort {
     public boolean existsByName(String name) {
         return userJpaRepository.existsByName(name);
     }
+
+    @Override
+    public java.util.Optional<User> findByEmail(String email) {
+        return userJpaRepository.findByEmail(email)
+                .map(userMapper::toDomain);
+    }
 }

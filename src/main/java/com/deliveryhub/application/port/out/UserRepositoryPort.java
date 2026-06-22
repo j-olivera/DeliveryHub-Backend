@@ -29,4 +29,12 @@ public interface UserRepositoryPort {
      * @return true si ya existe, false en caso contrario
      */
     boolean existsByName(String name);
+
+    /**
+     * Busca un usuario por su correo electrónico.
+     *
+     * @param email el correo electrónico del usuario
+     * @return un Optional conteniendo el usuario si se encuentra, o vacío si no
+     */
+    java.util.Optional<User> findByEmail(String email);
 }

@@ -23,4 +23,12 @@ public interface UserJpaRepository extends JpaRepository<UserEntity, UUID> {
      * @return true si existe, false en caso contrario
      */
     boolean existsByName(String name);
+
+    /**
+     * Busca un UserEntity por correo electrónico.
+     *
+     * @param email el correo a buscar
+     * @return un Optional con el UserEntity si se encuentra
+     */
+    java.util.Optional<UserEntity> findByEmail(String email);
 }
