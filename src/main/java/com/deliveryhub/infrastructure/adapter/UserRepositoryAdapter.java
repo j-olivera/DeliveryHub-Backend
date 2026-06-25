@@ -1,6 +1,6 @@
 package com.deliveryhub.infrastructure.adapter;
 
-import com.deliveryhub.application.port.out.UserRepositoryPort;
+import com.deliveryhub.application.port.out.user.UserRepositoryPort;
 import com.deliveryhub.domain.model.User;
 import com.deliveryhub.infrastructure.mapper.UserMapper;
 import com.deliveryhub.infrastructure.entity.user.*;
@@ -48,6 +48,12 @@ public class UserRepositoryAdapter implements UserRepositoryPort {
     @Override
     public java.util.Optional<User> findByEmail(String email) {
         return userJpaRepository.findByEmail(email)
+                .map(userMapper::toDomain);
+    }
+
+    @Override
+    public java.util.Optional<User> findById(java.util.UUID id) {
+        return userJpaRepository.findById(id)
                 .map(userMapper::toDomain);
     }
 }

@@ -1,9 +1,9 @@
 package com.deliveryhub.infrastructure.config;
 
-import com.deliveryhub.application.port.in.RegisterUserUseCase;
-import com.deliveryhub.application.port.out.UserRepositoryPort;
-import com.deliveryhub.application.usecase.RegisterUserUseCaseImpl;
-import com.deliveryhub.application.usecase.LoginUseCaseImpl;
+import com.deliveryhub.application.port.in.user.RegisterUserUseCase;
+import com.deliveryhub.application.port.out.user.UserRepositoryPort;
+import com.deliveryhub.application.usecase.user.RegisterUserUseCaseImpl;
+import com.deliveryhub.application.usecase.user.LoginUseCaseImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -32,7 +32,7 @@ public class BeanConfiguration {
      */
     @Bean
     public RegisterUserUseCase registerUserUseCase(UserRepositoryPort userRepositoryPort,
-                                                   com.deliveryhub.application.port.out.PasswordEncoderPort passwordEncoderPort) {
+                                                   com.deliveryhub.application.port.out.user.PasswordEncoderPort passwordEncoderPort) {
         return new RegisterUserUseCaseImpl(userRepositoryPort, passwordEncoderPort);
     }
 
@@ -45,9 +45,9 @@ public class BeanConfiguration {
      * @return la implementación del caso de uso LoginUseCase
      */
     @Bean
-    public com.deliveryhub.application.port.in.LoginUseCase loginUseCase(
+    public com.deliveryhub.application.port.in.user.LoginUseCase loginUseCase(
             UserRepositoryPort userRepositoryPort,
-            com.deliveryhub.application.port.out.PasswordEncoderPort passwordEncoderPort,
+            com.deliveryhub.application.port.out.user.PasswordEncoderPort passwordEncoderPort,
             com.deliveryhub.infrastructure.security.JwtUtils jwtUtils) {
         return new LoginUseCaseImpl(userRepositoryPort, passwordEncoderPort, jwtUtils);
     }

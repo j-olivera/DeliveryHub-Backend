@@ -12,10 +12,9 @@ class AddressTest {
     @Test
     @DisplayName("Should create a valid address")
     void shouldCreateValidAddress() {
-        Address address = new Address("Main St", "123", "Springfield", 40.7128, -74.0060);
+        Address address = new Address("Main St 123", "Springfield", 40.7128, -74.0060);
         
-        assertEquals("Main St", address.street());
-        assertEquals("123", address.number());
+        assertEquals("Main St 123", address.street());
         assertEquals("Springfield", address.city());
         assertEquals(40.7128, address.latitude());
         assertEquals(-74.0060, address.longitude());
@@ -26,29 +25,14 @@ class AddressTest {
     @DisplayName("Should throw exception when street is blank")
     void shouldThrowExceptionWhenStreetIsBlank(String street) {
         assertThrows(IllegalArgumentException.class, () -> 
-            new Address(street, "123", "Springfield", 40.7128, -74.0060));
+            new Address(street, "Springfield", 40.7128, -74.0060));
     }
 
     @Test
     @DisplayName("Should throw exception when street is null")
     void shouldThrowExceptionWhenStreetIsNull() {
         assertThrows(IllegalArgumentException.class, () -> 
-            new Address(null, "123", "Springfield", 40.7128, -74.0060));
-    }
-
-    @ParameterizedTest
-    @ValueSource(strings = {"", " ", "  "})
-    @DisplayName("Should throw exception when number is blank")
-    void shouldThrowExceptionWhenNumberIsBlank(String number) {
-        assertThrows(IllegalArgumentException.class, () -> 
-            new Address("Main St", number, "Springfield", 40.7128, -74.0060));
-    }
-
-    @Test
-    @DisplayName("Should throw exception when number is null")
-    void shouldThrowExceptionWhenNumberIsNull() {
-        assertThrows(IllegalArgumentException.class, () -> 
-            new Address("Main St", null, "Springfield", 40.7128, -74.0060));
+            new Address(null, "Springfield", 40.7128, -74.0060));
     }
 
     @ParameterizedTest
@@ -56,14 +40,14 @@ class AddressTest {
     @DisplayName("Should throw exception when city is blank")
     void shouldThrowExceptionWhenCityIsBlank(String city) {
         assertThrows(IllegalArgumentException.class, () -> 
-            new Address("Main St", "123", city, 40.7128, -74.0060));
+            new Address("Main St 123", city, 40.7128, -74.0060));
     }
 
     @Test
     @DisplayName("Should throw exception when city is null")
     void shouldThrowExceptionWhenCityIsNull() {
         assertThrows(IllegalArgumentException.class, () -> 
-            new Address("Main St", "123", null, 40.7128, -74.0060));
+            new Address("Main St 123", null, 40.7128, -74.0060));
     }
 
     @ParameterizedTest
@@ -71,7 +55,7 @@ class AddressTest {
     @DisplayName("Should throw exception when latitude is out of range")
     void shouldThrowExceptionWhenLatitudeIsOutOfRange(double latitude) {
         assertThrows(IllegalArgumentException.class, () -> 
-            new Address("Main St", "123", "Springfield", latitude, -74.0060));
+            new Address("Main St 123", "Springfield", latitude, -74.0060));
     }
 
     @ParameterizedTest
@@ -79,6 +63,6 @@ class AddressTest {
     @DisplayName("Should throw exception when longitude is out of range")
     void shouldThrowExceptionWhenLongitudeIsOutOfRange(double longitude) {
         assertThrows(IllegalArgumentException.class, () -> 
-            new Address("Main St", "123", "Springfield", 40.7128, longitude));
+            new Address("Main St 123", "Springfield", 40.7128, longitude));
     }
 }

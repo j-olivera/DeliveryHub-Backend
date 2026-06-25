@@ -73,4 +73,43 @@ public class GlobalExceptionHandler {
         ErrorResponse error = new ErrorResponse(ex.getMessage(), LocalDateTime.now());
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(error);
     }
+
+    /**
+     * Maneja excepciones de tipo OrderNotFoundException (pedido no encontrado).
+     * Retorna un estado HTTP 404 Not Found junto con un DTO ErrorResponse.
+     *
+     * @param ex excepción capturada
+     * @return respuesta de error formateada con código HTTP 404
+     */
+    @ExceptionHandler(com.deliveryhub.domain.exception.OrderNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleOrderNotFoundException(com.deliveryhub.domain.exception.OrderNotFoundException ex) {
+        ErrorResponse error = new ErrorResponse(ex.getMessage(), LocalDateTime.now());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+    }
+
+    /**
+     * Maneja excepciones de tipo UnauthorizedTransitionException (transición no autorizada).
+     * Retorna un estado HTTP 403 Forbidden junto con un DTO ErrorResponse.
+     *
+     * @param ex excepción capturada
+     * @return respuesta de error formateada con código HTTP 403
+     */
+    @ExceptionHandler(com.deliveryhub.domain.exception.UnauthorizedTransitionException.class)
+    public ResponseEntity<ErrorResponse> handleUnauthorizedTransitionException(com.deliveryhub.domain.exception.UnauthorizedTransitionException ex) {
+        ErrorResponse error = new ErrorResponse(ex.getMessage(), LocalDateTime.now());
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(error);
+    }
+
+    /**
+     * Maneja excepciones de tipo InvalidStatusTransitionException (transición de estado inválida).
+     * Retorna un estado HTTP 422 Unprocessable Entity junto con un DTO ErrorResponse.
+     *
+     * @param ex excepción capturada
+     * @return respuesta de error formateada con código HTTP 422
+     */
+    @ExceptionHandler(com.deliveryhub.domain.exception.InvalidStatusTransitionException.class)
+    public ResponseEntity<ErrorResponse> handleInvalidStatusTransitionException(com.deliveryhub.domain.exception.InvalidStatusTransitionException ex) {
+        ErrorResponse error = new ErrorResponse(ex.getMessage(), LocalDateTime.now());
+        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(error);
+    }
 }

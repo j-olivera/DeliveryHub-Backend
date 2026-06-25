@@ -16,8 +16,9 @@ public class User {
     private final String email;
     private final String password;
     private final UserRole role;
+    private boolean active;
 
-    private User(UUID id, String name, String email, String password, UserRole role) {
+    private User(UUID id, String name, String email, String password, UserRole role, boolean active) {
         validateMandatoryFields(name, email, role);
         validateEmailFormat(email);
         this.id = id;
@@ -25,6 +26,11 @@ public class User {
         this.email = email;
         this.password = password;
         this.role = role;
+        this.active = active;
+    }
+
+    private User(UUID id, String name, String email, String password, UserRole role) {
+        this(id, name, email, password, role, true);
     }
 
     private void validateMandatoryFields(String name, String email, UserRole role) {
@@ -70,6 +76,37 @@ public class User {
      */
     public static User reconstruct(UUID id, String name, String email, String password, UserRole role) {
         return new User(id, name, email, password, role);
+    }
+
+    /**
+     * Factory method to reconstruct a User from an existing state with active status.
+     *
+     * @param id       the user's ID
+     * @param name     the user's name
+     * @param email    the user's email
+     * @param password the user's password
+     * @param role     the user's role
+     * @param active   the user's active status
+     * @return a reconstructed User instance
+     */
+    public static User reconstruct(UUID id, String name, String email, String password, UserRole role, boolean active) {
+        return new User(id, name, email, password, role, active);
+    }
+
+    /**
+     * Checks if the user is active.
+     *
+     * @return true if active, false otherwise
+     */
+    public boolean isActive() {
+        return active;
+    }
+
+    /**
+     * Deactivates the user.
+     */
+    public void deactivate() {
+        this.active = false;
     }
 
     /**

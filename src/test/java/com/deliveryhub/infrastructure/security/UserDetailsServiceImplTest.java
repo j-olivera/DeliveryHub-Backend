@@ -1,6 +1,6 @@
 package com.deliveryhub.infrastructure.security;
 
-import com.deliveryhub.application.port.out.UserRepositoryPort;
+import com.deliveryhub.application.port.out.user.UserRepositoryPort;
 import com.deliveryhub.domain.enums.UserRole;
 import com.deliveryhub.domain.model.User;
 import org.junit.jupiter.api.BeforeEach;

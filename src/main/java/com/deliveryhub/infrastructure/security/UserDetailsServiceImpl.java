@@ -1,6 +1,6 @@
 package com.deliveryhub.infrastructure.security;
 
-import com.deliveryhub.application.port.out.UserRepositoryPort;
+import com.deliveryhub.application.port.out.user.UserRepositoryPort;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

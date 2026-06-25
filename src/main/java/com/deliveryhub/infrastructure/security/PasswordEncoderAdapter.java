@@ -1,6 +1,6 @@
 package com.deliveryhub.infrastructure.security;
 
-import com.deliveryhub.application.port.out.PasswordEncoderPort;
+import com.deliveryhub.application.port.out.user.PasswordEncoderPort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 

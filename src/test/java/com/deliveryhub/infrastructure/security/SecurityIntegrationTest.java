@@ -1,12 +1,12 @@
 package com.deliveryhub.infrastructure.security;
 
-import com.deliveryhub.application.dto.LoginResponse;
-import com.deliveryhub.application.port.in.LoginUseCase;
-import com.deliveryhub.application.port.in.RegisterUserUseCase;
+import com.deliveryhub.application.dto.user.LoginResponse;
+import com.deliveryhub.application.port.in.user.LoginUseCase;
+import com.deliveryhub.application.port.in.user.RegisterUserUseCase;
 import com.deliveryhub.domain.enums.UserRole;
 import com.deliveryhub.domain.model.User;
-import com.deliveryhub.presentation.rest.AuthController;
-import com.deliveryhub.presentation.rest.UserController;
+import com.deliveryhub.presentation.rest.user.AuthController;
+import com.deliveryhub.presentation.rest.user.UserController;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
@@ -24,7 +24,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(controllers = {AuthController.class, UserController.class, TestSecureController.class})
-@Import({SecurityConfig.class, JwtUtils.class})
+@Import({SecurityConfig.class, JwtUtils.class, com.deliveryhub.presentation.mapper.user.UserPresentationMapper.class})
 class SecurityIntegrationTest {
 
     @Autowired
@@ -62,7 +62,7 @@ class SecurityIntegrationTest {
 
     @Test
     void protectedEndpoints_withoutToken_shouldReturn401Unauthorized() throws Exception {
-        mockMvc.perform(get("/api/v1/orders"))
+        mockMvc.perform(get("/api/v1/test-orders"))
                 .andExpect(status().isForbidden()); // Spring Security default returns 403 when authentication is anonymous instead of 401 unless configured otherwise or standard entry points are defined
     }
 
