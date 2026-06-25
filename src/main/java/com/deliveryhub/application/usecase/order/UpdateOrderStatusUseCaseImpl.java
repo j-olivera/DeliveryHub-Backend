@@ -21,14 +21,18 @@ import java.util.UUID;
 public class UpdateOrderStatusUseCaseImpl implements UpdateOrderStatusUseCase {
 
     private final OrderRepositoryPort orderRepository;
+    private final com.deliveryhub.application.port.out.order.OrderEventPublisherPort orderEventPublisherPort;
 
     /**
      * Constructor del caso de uso.
      *
      * @param orderRepository puerto de persistencia de pedidos
+     * @param orderEventPublisherPort puerto para publicar eventos de pedidos
      */
-    public UpdateOrderStatusUseCaseImpl(OrderRepositoryPort orderRepository) {
+    public UpdateOrderStatusUseCaseImpl(OrderRepositoryPort orderRepository,
+                                       com.deliveryhub.application.port.out.order.OrderEventPublisherPort orderEventPublisherPort) {
         this.orderRepository = orderRepository;
+        this.orderEventPublisherPort = orderEventPublisherPort;
     }
 
     @Override
@@ -61,6 +65,12 @@ public class UpdateOrderStatusUseCaseImpl implements UpdateOrderStatusUseCase {
             throw new UnauthorizedTransitionException("Unsupported role for status transition");
         }
 
-        return orderRepository.save(order);
+        Order savedOrder = orderRepository.save(order);
+        if (newStatus == OrderStatus.CANCELLED) {
+            orderEventPublisherPort.publishOrderCancelled(savedOrder);
+        } else {
+            orderEventPublisherPort.publishOrderUpdated(savedOrder);
+        }
+        return savedOrder;
     }
 }

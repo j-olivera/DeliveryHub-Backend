@@ -1,5 +1,6 @@
 com/deliveryhub/Application.class
 com/deliveryhub/application/port/in/order/CreateOrderUseCase.class
+com/deliveryhub/infrastructure/websocket/OrderEventPublisherAdapter.class
 com/deliveryhub/presentation/dto/order/AssignOrderRequest.class
 com/deliveryhub/infrastructure/security/SecurityConfig.class
 com/deliveryhub/presentation/dto/order/UpdateOrderStatusRequest.class
@@ -18,9 +19,11 @@ com/deliveryhub/presentation/dto/order/OrderCreatedResponse.class
 com/deliveryhub/presentation/mapper/user/UserPresentationMapper.class
 com/deliveryhub/presentation/dto/order/AddressRequest.class
 com/deliveryhub/presentation/dto/order/OrderStatusUpdatedResponse.class
+com/deliveryhub/application/port/out/order/OrderEventPublisherPort.class
 com/deliveryhub/infrastructure/persistence/OrderJpaRepository.class
 com/deliveryhub/application/usecase/user/LoginUseCaseImpl.class
 com/deliveryhub/infrastructure/mapper/UserMapper.class
+com/deliveryhub/application/dto/order/OrderEvent.class
 com/deliveryhub/domain/exception/InvalidCredentialsException.class
 com/deliveryhub/domain/exception/UserAlreadyExistsException.class
 com/deliveryhub/presentation/dto/order/CoordinatesDto.class
@@ -28,6 +31,7 @@ com/deliveryhub/domain/model/Address.class
 com/deliveryhub/presentation/dto/order/OrderResponse.class
 com/deliveryhub/application/usecase/order/AssignOrderUseCaseImpl.class
 com/deliveryhub/presentation/rest/user/AuthController.class
+com/deliveryhub/infrastructure/websocket/WebSocketConfig.class
 com/deliveryhub/presentation/rest/user/UserController.class
 com/deliveryhub/infrastructure/adapter/OrderRepositoryAdapter.class
 com/deliveryhub/application/dto/user/LoginResponse.class

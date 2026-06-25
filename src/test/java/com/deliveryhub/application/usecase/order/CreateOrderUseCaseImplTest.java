@@ -22,6 +22,9 @@ class CreateOrderUseCaseImplTest {
     @Mock
     private OrderRepositoryPort orderRepository;
 
+    @Mock
+    private com.deliveryhub.application.port.out.order.OrderEventPublisherPort orderEventPublisherPort;
+
     @InjectMocks
     private CreateOrderUseCaseImpl createOrderUseCase;
 

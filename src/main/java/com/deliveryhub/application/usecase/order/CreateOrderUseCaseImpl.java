@@ -1,6 +1,7 @@
 package com.deliveryhub.application.usecase.order;
 
 import com.deliveryhub.application.port.in.order.CreateOrderUseCase;
+import com.deliveryhub.application.port.out.order.OrderEventPublisherPort;
 import com.deliveryhub.application.port.out.order.OrderRepositoryPort;
 import com.deliveryhub.domain.model.Address;
 import com.deliveryhub.domain.model.Order;
@@ -17,20 +18,25 @@ import java.util.UUID;
 public class CreateOrderUseCaseImpl implements CreateOrderUseCase {
 
     private final OrderRepositoryPort orderRepository;
+    private final OrderEventPublisherPort orderEventPublisherPort;
 
     /**
      * Constructor del caso de uso.
      *
      * @param orderRepository puerto de persistencia de pedidos
+     * @param orderEventPublisherPort puerto para notificar eventos del pedido
      */
-    public CreateOrderUseCaseImpl(OrderRepositoryPort orderRepository) {
+    public CreateOrderUseCaseImpl(OrderRepositoryPort orderRepository, OrderEventPublisherPort orderEventPublisherPort) {
         this.orderRepository = orderRepository;
+        this.orderEventPublisherPort = orderEventPublisherPort;
     }
 
     @Override
     public Order execute(UUID adminUserId, String customerName, String customerPhone, 
                           Address address, String notes) {
         Order order = Order.create(adminUserId, customerName, customerPhone, address, notes);
-        return orderRepository.save(order);
+        Order savedOrder = orderRepository.save(order);
+        orderEventPublisherPort.publishOrderCreated(savedOrder);
+        return savedOrder;
     }
 }

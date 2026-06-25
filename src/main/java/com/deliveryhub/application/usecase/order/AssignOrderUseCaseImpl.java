@@ -22,16 +22,20 @@ public class AssignOrderUseCaseImpl implements AssignOrderUseCase {
 
     private final OrderRepositoryPort orderRepository;
     private final UserRepositoryPort userRepository;
+    private final com.deliveryhub.application.port.out.order.OrderEventPublisherPort orderEventPublisherPort;
 
     /**
      * Constructor del caso de uso.
      *
      * @param orderRepository puerto de persistencia de pedidos
      * @param userRepository  puerto de persistencia de usuarios
+     * @param orderEventPublisherPort puerto para publicar eventos de pedidos
      */
-    public AssignOrderUseCaseImpl(OrderRepositoryPort orderRepository, UserRepositoryPort userRepository) {
+    public AssignOrderUseCaseImpl(OrderRepositoryPort orderRepository, UserRepositoryPort userRepository,
+                                 com.deliveryhub.application.port.out.order.OrderEventPublisherPort orderEventPublisherPort) {
         this.orderRepository = orderRepository;
         this.userRepository = userRepository;
+        this.orderEventPublisherPort = orderEventPublisherPort;
     }
 
     @Override
@@ -62,6 +66,8 @@ public class AssignOrderUseCaseImpl implements AssignOrderUseCase {
         // Realizar la asignación a través de la lógica de dominio
         order.assign(deliveryUserId, UserRole.ADMIN);
 
-        return orderRepository.save(order);
+        Order savedOrder = orderRepository.save(order);
+        orderEventPublisherPort.publishOrderAssigned(savedOrder);
+        return savedOrder;
     }
 }
