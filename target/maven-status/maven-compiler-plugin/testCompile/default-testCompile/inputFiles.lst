@@ -21,6 +21,7 @@
 /home/j-olivera/Projects/DeliveryHub-Backend/src/test/java/com/deliveryhub/infrastructure/security/SecurityIntegrationTest.java
 /home/j-olivera/Projects/DeliveryHub-Backend/src/test/java/com/deliveryhub/infrastructure/security/TestSecureController.java
 /home/j-olivera/Projects/DeliveryHub-Backend/src/test/java/com/deliveryhub/infrastructure/security/UserDetailsServiceImplTest.java
+/home/j-olivera/Projects/DeliveryHub-Backend/src/test/java/com/deliveryhub/infrastructure/websocket/WebSocketIntegrationTest.java
 /home/j-olivera/Projects/DeliveryHub-Backend/src/test/java/com/deliveryhub/presentation/mapper/user/UserPresentationMapperTest.java
 /home/j-olivera/Projects/DeliveryHub-Backend/src/test/java/com/deliveryhub/presentation/rest/order/OrderControllerTest.java
 /home/j-olivera/Projects/DeliveryHub-Backend/src/test/java/com/deliveryhub/presentation/rest/user/AuthControllerTest.java

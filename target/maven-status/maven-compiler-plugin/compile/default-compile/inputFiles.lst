@@ -45,6 +45,7 @@
 /home/j-olivera/Projects/DeliveryHub-Backend/src/main/java/com/deliveryhub/infrastructure/security/SecurityConfig.java
 /home/j-olivera/Projects/DeliveryHub-Backend/src/main/java/com/deliveryhub/infrastructure/security/UserDetailsServiceImpl.java
 /home/j-olivera/Projects/DeliveryHub-Backend/src/main/java/com/deliveryhub/infrastructure/websocket/OrderEventPublisherAdapter.java
+/home/j-olivera/Projects/DeliveryHub-Backend/src/main/java/com/deliveryhub/infrastructure/websocket/WebSocketAuthInterceptor.java
 /home/j-olivera/Projects/DeliveryHub-Backend/src/main/java/com/deliveryhub/infrastructure/websocket/WebSocketConfig.java
 /home/j-olivera/Projects/DeliveryHub-Backend/src/main/java/com/deliveryhub/presentation/dto/ErrorResponse.java
 /home/j-olivera/Projects/DeliveryHub-Backend/src/main/java/com/deliveryhub/presentation/dto/order/AddressRequest.java

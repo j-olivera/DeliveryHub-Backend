@@ -64,6 +64,7 @@ com/deliveryhub/presentation/rest/order/OrderController.class
 com/deliveryhub/presentation/dto/order/CoordinatesResponse.class
 com/deliveryhub/application/port/in/order/UpdateOrderStatusUseCase.class
 com/deliveryhub/application/port/in/user/RegisterUserUseCase.class
+com/deliveryhub/infrastructure/websocket/WebSocketAuthInterceptor.class
 com/deliveryhub/infrastructure/entity/order/AddressEntity.class
 com/deliveryhub/presentation/dto/user/UserResponse.class
 com/deliveryhub/domain/exception/UnauthorizedTransitionException.class
