@@ -1,7 +1,10 @@
 package com.deliveryhub.infrastructure.persistence;
 
+import com.deliveryhub.domain.enums.UserRole;
 import com.deliveryhub.infrastructure.entity.user.*;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -36,7 +39,9 @@ public interface UserJpaRepository extends JpaRepository<UserEntity, UUID> {
      * Busca los UserEntity activos por su rol.
      *
      * @param role el rol a filtrar
-     * @return lista de UserEntity que coinciden
+     * @return lista de UserEntity que coinciden y están activos
      */
-    java.util.List<UserEntity> findByRoleAndActiveTrue(com.deliveryhub.domain.enums.UserRole role);
+    List<UserEntity> findByRoleAndActiveTrue(UserRole role);
+
+    List<UserEntity> findByRole(UserRole userRole);
 }

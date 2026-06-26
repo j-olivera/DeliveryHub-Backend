@@ -1,6 +1,7 @@
 package com.deliveryhub.presentation.rest.user;
 
 import com.deliveryhub.application.port.in.user.RegisterUserUseCase;
+import com.deliveryhub.application.port.in.user.GetActiveDeliveriesUseCase;
 import com.deliveryhub.domain.model.User;
 import com.deliveryhub.presentation.dto.user.RegisterUserRequest;
 import com.deliveryhub.presentation.dto.user.UserResponse;
@@ -8,10 +9,9 @@ import com.deliveryhub.presentation.mapper.user.UserPresentationMapper;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * Controlador REST para la gestión de usuarios.
@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     private final RegisterUserUseCase registerUserUseCase;
-    private final com.deliveryhub.application.port.in.user.GetActiveDeliveriesUseCase getActiveDeliveriesUseCase;
+    private final GetActiveDeliveriesUseCase getActiveDeliveriesUseCase;
     private final UserPresentationMapper userPresentationMapper;
 
     /**
@@ -33,7 +33,7 @@ public class UserController {
      * @param userPresentationMapper mapeador de la capa de presentación
      */
     public UserController(RegisterUserUseCase registerUserUseCase,
-                          com.deliveryhub.application.port.in.user.GetActiveDeliveriesUseCase getActiveDeliveriesUseCase,
+                          GetActiveDeliveriesUseCase getActiveDeliveriesUseCase,
                           UserPresentationMapper userPresentationMapper) {
         this.registerUserUseCase = registerUserUseCase;
         this.getActiveDeliveriesUseCase = getActiveDeliveriesUseCase;
@@ -63,12 +63,12 @@ public class UserController {
      *
      * @return lista de repartidores y estado 200 OK
      */
-    @org.springframework.web.bind.annotation.GetMapping
-    public ResponseEntity<java.util.List<UserResponse>> getActiveDeliveries() {
-        java.util.List<User> riders = getActiveDeliveriesUseCase.execute();
-        java.util.List<UserResponse> response = riders.stream()
+    @GetMapping
+    public ResponseEntity<List<UserResponse>> getActiveDeliveries() {
+        List<User> riders = getActiveDeliveriesUseCase.execute();
+        List<UserResponse> response = riders.stream()
                 .map(userPresentationMapper::toResponse)
-                .collect(java.util.stream.Collectors.toList());
+                .toList();
         return ResponseEntity.ok(response);
     }
 }

@@ -3,6 +3,7 @@ package com.deliveryhub.application.usecase.user;
 import com.deliveryhub.application.port.in.user.GetActiveDeliveriesUseCase;
 import com.deliveryhub.application.port.out.user.UserRepositoryPort;
 import com.deliveryhub.domain.model.User;
+
 import java.util.List;
 
 /**

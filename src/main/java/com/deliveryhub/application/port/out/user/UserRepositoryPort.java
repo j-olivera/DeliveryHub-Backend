@@ -1,6 +1,9 @@
 package com.deliveryhub.application.port.out.user;
 
+import com.deliveryhub.domain.enums.UserRole;
 import com.deliveryhub.domain.model.User;
+
+import java.util.List;
 
 /**
  * Puerto de salida para las operaciones de persistencia de usuarios.
@@ -51,5 +54,8 @@ public interface UserRepositoryPort {
      *
      * @return lista de repartidores activos
      */
-    java.util.List<User> findActiveDeliveries();
+    List<User> findActiveDeliveries();
+
+    List<User> findAllDeliveries(UserRole userRole);
+
 }

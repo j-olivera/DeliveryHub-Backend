@@ -25,3 +25,7 @@ security:
     secret: ${JWT_SECRET:placeholder_secret_for_dev_only_32_chars_min}
     expiration-ms: 3600000 # 1 hour
     issuer: deliveryhub-api
+
+logging:
+  level:
+    org.springframework.security: DEBUG

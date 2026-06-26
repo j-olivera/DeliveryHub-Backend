@@ -3,6 +3,7 @@
 /home/j-olivera/Projects/DeliveryHub-Backend/src/test/java/com/deliveryhub/application/usecase/order/CreateOrderUseCaseImplTest.java
 /home/j-olivera/Projects/DeliveryHub-Backend/src/test/java/com/deliveryhub/application/usecase/order/GetOrdersUseCaseImplTest.java
 /home/j-olivera/Projects/DeliveryHub-Backend/src/test/java/com/deliveryhub/application/usecase/order/UpdateOrderStatusUseCaseImplTest.java
+/home/j-olivera/Projects/DeliveryHub-Backend/src/test/java/com/deliveryhub/application/usecase/user/GetActiveDeliveriesUseCaseImplTest.java
 /home/j-olivera/Projects/DeliveryHub-Backend/src/test/java/com/deliveryhub/application/usecase/user/LoginUseCaseImplTest.java
 /home/j-olivera/Projects/DeliveryHub-Backend/src/test/java/com/deliveryhub/application/usecase/user/RegisterUserUseCaseTest.java
 /home/j-olivera/Projects/DeliveryHub-Backend/src/test/java/com/deliveryhub/domain/enums/OrderStatusTest.java

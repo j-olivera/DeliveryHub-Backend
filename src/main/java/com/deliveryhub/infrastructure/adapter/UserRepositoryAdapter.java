@@ -1,11 +1,14 @@
 package com.deliveryhub.infrastructure.adapter;
 
 import com.deliveryhub.application.port.out.user.UserRepositoryPort;
+import com.deliveryhub.domain.enums.UserRole;
 import com.deliveryhub.domain.model.User;
 import com.deliveryhub.infrastructure.mapper.UserMapper;
 import com.deliveryhub.infrastructure.entity.user.*;
 import org.springframework.stereotype.Repository;
 import com.deliveryhub.infrastructure.persistence.UserJpaRepository;
+
+import java.util.List;
 
 /**
  * Adaptador de persistencia para el repositorio de usuarios.
@@ -58,9 +61,15 @@ public class UserRepositoryAdapter implements UserRepositoryPort {
     }
 
     @Override
-    public java.util.List<User> findActiveDeliveries() {
-        return userJpaRepository.findByRoleAndActiveTrue(com.deliveryhub.domain.enums.UserRole.DELIVERY).stream()
+    public List<User> findAllDeliveries(UserRole userRole) {
+        return userJpaRepository.findByRole(userRole)
+                .stream().map(userMapper::toDomain)
+                .toList();
+    }
+    @Override
+    public List<User> findActiveDeliveries() {
+        return userJpaRepository.findByRoleAndActiveTrue(UserRole.DELIVERY).stream()
                 .map(userMapper::toDomain)
-                .collect(java.util.stream.Collectors.toList());
+                .toList();
     }
 }

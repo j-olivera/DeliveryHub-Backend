@@ -4,6 +4,7 @@ import com.deliveryhub.application.port.in.user.RegisterUserUseCase;
 import com.deliveryhub.application.port.out.user.UserRepositoryPort;
 import com.deliveryhub.application.usecase.user.RegisterUserUseCaseImpl;
 import com.deliveryhub.application.usecase.user.LoginUseCaseImpl;
+import com.deliveryhub.infrastructure.security.JwtUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
