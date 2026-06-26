@@ -55,6 +55,11 @@ public class OrderEventPublisherAdapter implements OrderEventPublisherPort {
         OrderEvent event = createEvent("ORDER_STATUS_UPDATED", order);
         // Notificar a ADMIN
         messagingTemplate.convertAndSend("/topic/admin/orders", event);
+
+        // Notificar al repartidor asignado (usando su email como Principal Name de la sesión WebSocket)
+        if (order.getDeliveryUserId() != null) {
+            sendToDeliveryUser(order.getDeliveryUserId(), event);
+        }
     }
 
     @Override
