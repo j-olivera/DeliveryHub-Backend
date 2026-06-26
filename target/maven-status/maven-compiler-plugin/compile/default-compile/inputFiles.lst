@@ -6,6 +6,7 @@
 /home/j-olivera/Projects/DeliveryHub-Backend/src/main/java/com/deliveryhub/application/port/in/order/CreateOrderUseCase.java
 /home/j-olivera/Projects/DeliveryHub-Backend/src/main/java/com/deliveryhub/application/port/in/order/GetOrdersUseCase.java
 /home/j-olivera/Projects/DeliveryHub-Backend/src/main/java/com/deliveryhub/application/port/in/order/UpdateOrderStatusUseCase.java
+/home/j-olivera/Projects/DeliveryHub-Backend/src/main/java/com/deliveryhub/application/port/in/user/GetActiveDeliveriesUseCase.java
 /home/j-olivera/Projects/DeliveryHub-Backend/src/main/java/com/deliveryhub/application/port/in/user/LoginUseCase.java
 /home/j-olivera/Projects/DeliveryHub-Backend/src/main/java/com/deliveryhub/application/port/in/user/RegisterUserUseCase.java
 /home/j-olivera/Projects/DeliveryHub-Backend/src/main/java/com/deliveryhub/application/port/out/order/OrderEventPublisherPort.java
@@ -16,6 +17,7 @@
 /home/j-olivera/Projects/DeliveryHub-Backend/src/main/java/com/deliveryhub/application/usecase/order/CreateOrderUseCaseImpl.java
 /home/j-olivera/Projects/DeliveryHub-Backend/src/main/java/com/deliveryhub/application/usecase/order/GetOrdersUseCaseImpl.java
 /home/j-olivera/Projects/DeliveryHub-Backend/src/main/java/com/deliveryhub/application/usecase/order/UpdateOrderStatusUseCaseImpl.java
+/home/j-olivera/Projects/DeliveryHub-Backend/src/main/java/com/deliveryhub/application/usecase/user/GetActiveDeliveriesUseCaseImpl.java
 /home/j-olivera/Projects/DeliveryHub-Backend/src/main/java/com/deliveryhub/application/usecase/user/LoginUseCaseImpl.java
 /home/j-olivera/Projects/DeliveryHub-Backend/src/main/java/com/deliveryhub/application/usecase/user/RegisterUserUseCaseImpl.java
 /home/j-olivera/Projects/DeliveryHub-Backend/src/main/java/com/deliveryhub/domain/enums/OrderStatus.java

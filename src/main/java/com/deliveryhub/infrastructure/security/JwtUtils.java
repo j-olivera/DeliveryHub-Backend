@@ -27,8 +27,8 @@ public class JwtUtils {
      * @param jwtExpirationMs el tiempo de expiración del token en milisegundos
      */
     public JwtUtils(
-            @Value("${app.security.jwt.secret:mySuperSecretKeyForJwtGenerationMustBeAtLeast256BitsLong!}") String jwtSecret,
-            @Value("${app.security.jwt.expiration-ms:86400000}") int jwtExpirationMs) {
+            @Value("${security.jwt.secret:mySuperSecretKeyForJwtGenerationMustBeAtLeast256BitsLong!}") String jwtSecret,
+            @Value("${security.jwt.expiration-ms:86400000}") int jwtExpirationMs) {
         this.key = Keys.hmacShaKeyFor(jwtSecret.getBytes(StandardCharsets.UTF_8));
         this.jwtExpirationMs = jwtExpirationMs;
     }

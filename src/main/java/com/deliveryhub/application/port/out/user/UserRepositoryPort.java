@@ -45,4 +45,11 @@ public interface UserRepositoryPort {
      * @return un Optional conteniendo el usuario si se encuentra, o vacío si no
      */
     java.util.Optional<User> findById(java.util.UUID id);
+
+    /**
+     * Busca todos los usuarios activos que tienen el rol de DELIVERY.
+     *
+     * @return lista de repartidores activos
+     */
+    java.util.List<User> findActiveDeliveries();
 }

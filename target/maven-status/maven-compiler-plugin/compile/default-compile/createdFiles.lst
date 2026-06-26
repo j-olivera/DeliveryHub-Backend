@@ -39,6 +39,7 @@ com/deliveryhub/presentation/dto/user/RegisterUserRequest.class
 com/deliveryhub/domain/exception/DomainValidationException.class
 com/deliveryhub/presentation/mapper/order/OrderPresentationMapper.class
 com/deliveryhub/presentation/dto/order/AddressResponse.class
+com/deliveryhub/application/port/in/user/GetActiveDeliveriesUseCase.class
 com/deliveryhub/infrastructure/security/PasswordEncoderAdapter.class
 com/deliveryhub/presentation/dto/ErrorResponse.class
 com/deliveryhub/infrastructure/adapter/UserRepositoryAdapter.class
@@ -51,6 +52,7 @@ com/deliveryhub/domain/exception/OrderNotFoundException.class
 com/deliveryhub/application/usecase/order/UpdateOrderStatusUseCaseImpl.class
 com/deliveryhub/infrastructure/security/JwtFilter.class
 com/deliveryhub/presentation/rest/GlobalExceptionHandler.class
+com/deliveryhub/application/usecase/user/GetActiveDeliveriesUseCaseImpl.class
 com/deliveryhub/infrastructure/persistence/UserJpaRepository.class
 com/deliveryhub/application/dto/user/RegisterUserRequest.class
 com/deliveryhub/application/usecase/user/RegisterUserUseCaseImpl.class

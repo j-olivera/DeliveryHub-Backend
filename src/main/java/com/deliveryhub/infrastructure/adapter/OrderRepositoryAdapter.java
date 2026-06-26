@@ -37,6 +37,15 @@ public class OrderRepositoryAdapter implements OrderRepositoryPort {
     @Override
     public Order save(Order order) {
         OrderEntity entity = mapper.toEntity(order);
+
+        // Preservar el ID de la dirección existente para evitar inserts duplicados
+        // El modelo de dominio Address no tiene ID, así que lo recuperamos de la entidad previa
+        jpaRepository.findById(order.getId()).ifPresent(existing -> {
+            if (existing.getAddress() != null && entity.getAddress() != null) {
+                entity.getAddress().setId(existing.getAddress().getId());
+            }
+        });
+
         OrderEntity savedEntity = jpaRepository.save(entity);
         return mapper.toDomain(savedEntity);
     }

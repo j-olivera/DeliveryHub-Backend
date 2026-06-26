@@ -37,6 +37,9 @@ class SecurityIntegrationTest {
     private RegisterUserUseCase registerUserUseCase;
 
     @MockitoBean
+    private com.deliveryhub.application.port.in.user.GetActiveDeliveriesUseCase getActiveDeliveriesUseCase;
+
+    @MockitoBean
     private UserDetailsServiceImpl userDetailsService;
 
     @MockitoBean

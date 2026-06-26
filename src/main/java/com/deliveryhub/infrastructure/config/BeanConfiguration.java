@@ -51,4 +51,10 @@ public class BeanConfiguration {
             com.deliveryhub.infrastructure.security.JwtUtils jwtUtils) {
         return new LoginUseCaseImpl(userRepositoryPort, passwordEncoderPort, jwtUtils);
     }
+
+    @Bean
+    public com.deliveryhub.application.port.in.user.GetActiveDeliveriesUseCase getActiveDeliveriesUseCase(
+            UserRepositoryPort userRepositoryPort) {
+        return new com.deliveryhub.application.usecase.user.GetActiveDeliveriesUseCaseImpl(userRepositoryPort);
+    }
 }

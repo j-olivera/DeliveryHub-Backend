@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.config.web.PathPatternRequestMatcherBuilderFactoryBean;
 
 /**
  * Configuración de seguridad principal para la aplicación.
@@ -64,6 +65,17 @@ public class SecurityConfig {
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
+    }
+
+    /**
+     * Expone el factory bean de PathPatternRequestMatcherBuilder
+     * requerido por Spring Security 7.0+ con autorizaciones basadas en requestMatchers.
+     *
+     * @return el PathPatternRequestMatcherBuilderFactoryBean
+     */
+    @Bean
+    public PathPatternRequestMatcherBuilderFactoryBean pathPatternRequestMatcherBuilderFactoryBean() {
+        return new PathPatternRequestMatcherBuilderFactoryBean();
     }
 
     /**

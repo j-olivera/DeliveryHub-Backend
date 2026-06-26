@@ -37,6 +37,9 @@ class UserControllerTest {
     private RegisterUserUseCase registerUserUseCase;
 
     @MockitoBean
+    private com.deliveryhub.application.port.in.user.GetActiveDeliveriesUseCase getActiveDeliveriesUseCase;
+
+    @MockitoBean
     private com.deliveryhub.infrastructure.security.JwtUtils jwtUtils;
 
     @MockitoBean
@@ -201,5 +204,21 @@ class UserControllerTest {
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.message").value("Domain validation failed"))
                 .andExpect(jsonPath("$.timestamp").exists());
+    }
+
+    @Test
+    void getActiveDeliveries_shouldReturn200AndRidersList() throws Exception {
+        // Arrange
+        java.util.UUID riderId = java.util.UUID.randomUUID();
+        User rider = User.reconstruct(riderId, "Carlos", "carlos@test.com", "pwd123", UserRole.DELIVERY);
+        when(getActiveDeliveriesUseCase.execute()).thenReturn(java.util.List.of(rider));
+
+        // Act & Assert
+        mockMvc.perform(org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get("/api/v1/users"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].id").value(riderId.toString()))
+                .andExpect(jsonPath("$[0].name").value("Carlos"))
+                .andExpect(jsonPath("$[0].email").value("carlos@test.com"))
+                .andExpect(jsonPath("$[0].role").value("DELIVERY"));
     }
 }

@@ -22,16 +22,21 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     private final RegisterUserUseCase registerUserUseCase;
+    private final com.deliveryhub.application.port.in.user.GetActiveDeliveriesUseCase getActiveDeliveriesUseCase;
     private final UserPresentationMapper userPresentationMapper;
 
     /**
      * Constructor del controlador.
      *
      * @param registerUserUseCase caso de uso de registro de usuario
+     * @param getActiveDeliveriesUseCase caso de uso para listar repartidores activos
      * @param userPresentationMapper mapeador de la capa de presentación
      */
-    public UserController(RegisterUserUseCase registerUserUseCase, UserPresentationMapper userPresentationMapper) {
+    public UserController(RegisterUserUseCase registerUserUseCase,
+                          com.deliveryhub.application.port.in.user.GetActiveDeliveriesUseCase getActiveDeliveriesUseCase,
+                          UserPresentationMapper userPresentationMapper) {
         this.registerUserUseCase = registerUserUseCase;
+        this.getActiveDeliveriesUseCase = getActiveDeliveriesUseCase;
         this.userPresentationMapper = userPresentationMapper;
     }
 
@@ -51,5 +56,19 @@ public class UserController {
         UserResponse response = userPresentationMapper.toResponse(createdUser);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
+    /**
+     * Obtiene la lista de repartidores activos.
+     *
+     * @return lista de repartidores y estado 200 OK
+     */
+    @org.springframework.web.bind.annotation.GetMapping
+    public ResponseEntity<java.util.List<UserResponse>> getActiveDeliveries() {
+        java.util.List<User> riders = getActiveDeliveriesUseCase.execute();
+        java.util.List<UserResponse> response = riders.stream()
+                .map(userPresentationMapper::toResponse)
+                .collect(java.util.stream.Collectors.toList());
+        return ResponseEntity.ok(response);
     }
 }

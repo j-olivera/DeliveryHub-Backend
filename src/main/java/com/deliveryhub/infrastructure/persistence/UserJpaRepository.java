@@ -31,4 +31,12 @@ public interface UserJpaRepository extends JpaRepository<UserEntity, UUID> {
      * @return un Optional con el UserEntity si se encuentra
      */
     java.util.Optional<UserEntity> findByEmail(String email);
+
+    /**
+     * Busca los UserEntity activos por su rol.
+     *
+     * @param role el rol a filtrar
+     * @return lista de UserEntity que coinciden
+     */
+    java.util.List<UserEntity> findByRoleAndActiveTrue(com.deliveryhub.domain.enums.UserRole role);
 }

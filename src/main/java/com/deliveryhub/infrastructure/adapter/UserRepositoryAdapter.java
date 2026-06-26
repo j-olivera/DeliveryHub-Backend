@@ -56,4 +56,11 @@ public class UserRepositoryAdapter implements UserRepositoryPort {
         return userJpaRepository.findById(id)
                 .map(userMapper::toDomain);
     }
+
+    @Override
+    public java.util.List<User> findActiveDeliveries() {
+        return userJpaRepository.findByRoleAndActiveTrue(com.deliveryhub.domain.enums.UserRole.DELIVERY).stream()
+                .map(userMapper::toDomain)
+                .collect(java.util.stream.Collectors.toList());
+    }
 }
