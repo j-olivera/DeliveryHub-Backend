@@ -34,8 +34,10 @@ public class OrderEntity {
     @Column(columnDefinition = "TEXT")
     private String notes;
 
+    @Column(columnDefinition = "numeric(10,7)")
     private Double latitude;
 
+    @Column(columnDefinition = "numeric(10,7)")
     private Double longitude;
 
     @Column(name = "created_at", nullable = false, updatable = false)

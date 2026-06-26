@@ -26,8 +26,10 @@ public class AddressEntity {
     @Column(name = "zip_code")
     private String zipCode;
 
+    @Column(columnDefinition = "numeric(10,7)")
     private Double latitude;
 
+    @Column(columnDefinition = "numeric(10,7)")
     private Double longitude;
 
     public UUID getId() {
