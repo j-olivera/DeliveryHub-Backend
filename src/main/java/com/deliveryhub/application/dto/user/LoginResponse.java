@@ -12,5 +12,6 @@ import java.util.UUID;
 public record LoginResponse(
     String token,
     UUID userId,
-    String role
+    String role,
+    String name
 ) {}

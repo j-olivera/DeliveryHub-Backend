@@ -48,7 +48,7 @@ class SecurityIntegrationTest {
     @Test
     void publicEndpoints_shouldBeAccessibleWithoutAuth() throws Exception {
         // POST /api/v1/auth/login es público
-        when(loginUseCase.execute(any(), any())).thenReturn(new LoginResponse("token", UUID.randomUUID(), "DELIVERY"));
+        when(loginUseCase.execute(any(), any())).thenReturn(new LoginResponse("token", UUID.randomUUID(), "DELIVERY", "Alice"));
         mockMvc.perform(post("/api/v1/auth/login")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"email\":\"test@test.com\",\"password\":\"pwd\"}"))

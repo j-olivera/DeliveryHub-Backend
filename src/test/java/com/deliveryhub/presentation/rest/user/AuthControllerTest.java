@@ -48,7 +48,7 @@ class AuthControllerTest {
         // Arrange
         LoginRequest request = new LoginRequest("john@example.com", "password123");
         UUID userId = UUID.randomUUID();
-        LoginResponse loginResponse = new LoginResponse("dummy-jwt-token", userId, "DELIVERY");
+        LoginResponse loginResponse = new LoginResponse("dummy-jwt-token", userId, "DELIVERY", "John Doe");
 
         when(loginUseCase.execute(request.email(), request.password())).thenReturn(loginResponse);
 
@@ -59,7 +59,8 @@ class AuthControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.token").value("dummy-jwt-token"))
                 .andExpect(jsonPath("$.userId").value(userId.toString()))
-                .andExpect(jsonPath("$.role").value("DELIVERY"));
+                .andExpect(jsonPath("$.role").value("DELIVERY"))
+                .andExpect(jsonPath("$.name").value("John Doe"));
     }
 
     @Test

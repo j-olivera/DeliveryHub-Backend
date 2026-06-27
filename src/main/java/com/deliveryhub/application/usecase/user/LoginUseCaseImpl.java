@@ -43,6 +43,6 @@ public class LoginUseCaseImpl implements LoginUseCase {
 
         String token = jwtUtils.generateToken(user.getEmail());
 
-        return new LoginResponse(token, user.getId(), user.getRole().name());
+        return new LoginResponse(token, user.getId(), user.getRole().name(), user.getName());
     }
 }

@@ -52,6 +52,7 @@ class LoginUseCaseImplTest {
         assertEquals("dummy-jwt-token", response.token());
         assertEquals(userId, response.userId());
         assertEquals("DELIVERY", response.role());
+        assertEquals("John Doe", response.name());
     }
 
     @Test
