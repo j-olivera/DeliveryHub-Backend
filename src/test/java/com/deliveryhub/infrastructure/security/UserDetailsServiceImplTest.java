@@ -45,6 +45,8 @@ class UserDetailsServiceImplTest {
         assertEquals("encodedPassword", userDetails.getPassword());
         assertTrue(userDetails.getAuthorities().stream()
                 .anyMatch(auth -> auth.getAuthority().equals("ROLE_DELIVERY")));
+        assertTrue(userDetails instanceof CustomUserDetails);
+        assertEquals(user.getId(), ((CustomUserDetails) userDetails).getId());
         verify(userRepositoryPort).findByEmail(email);
     }
 

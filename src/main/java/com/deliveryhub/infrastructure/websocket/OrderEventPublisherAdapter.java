@@ -2,11 +2,13 @@ package com.deliveryhub.infrastructure.websocket;
 
 import com.deliveryhub.application.dto.order.OrderEvent;
 import com.deliveryhub.application.port.out.order.OrderEventPublisherPort;
-import com.deliveryhub.application.port.out.user.UserRepositoryPort;
 import com.deliveryhub.domain.model.Order;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
@@ -18,17 +20,14 @@ import java.util.UUID;
 public class OrderEventPublisherAdapter implements OrderEventPublisherPort {
 
     private final SimpMessagingTemplate messagingTemplate;
-    private final UserRepositoryPort userRepositoryPort;
 
     /**
      * Constructor del adaptador.
      *
      * @param messagingTemplate plantilla de mensajería para Spring WebSockets
-     * @param userRepositoryPort puerto para obtener información de usuarios
      */
-    public OrderEventPublisherAdapter(SimpMessagingTemplate messagingTemplate, UserRepositoryPort userRepositoryPort) {
+    public OrderEventPublisherAdapter(SimpMessagingTemplate messagingTemplate) {
         this.messagingTemplate = messagingTemplate;
-        this.userRepositoryPort = userRepositoryPort;
     }
 
     @Override
@@ -75,9 +74,13 @@ public class OrderEventPublisherAdapter implements OrderEventPublisherPort {
     }
 
     private OrderEvent createEvent(String eventType, Order order) {
-        String timestamp = order.getUpdatedAt() != null 
-            ? order.getUpdatedAt().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME) 
-            : "";
+        LocalDateTime eventTime = order.getUpdatedAt() != null ? order.getUpdatedAt() : order.getCreatedAt();
+        if (eventTime == null) {
+            eventTime = LocalDateTime.now();
+        }
+        String timestamp = eventTime.atZone(ZoneId.systemDefault())
+                .withZoneSameInstant(ZoneOffset.UTC)
+                .format(DateTimeFormatter.ISO_OFFSET_DATE_TIME);
         return new OrderEvent(
             eventType,
             order.getId(),
@@ -88,10 +91,7 @@ public class OrderEventPublisherAdapter implements OrderEventPublisherPort {
     }
 
     private void sendToDeliveryUser(UUID deliveryUserId, OrderEvent event) {
-        // En Spring Security/WebSockets el Principal Name es el email del usuario,
-        // por lo que debemos recuperar el email del repartidor por su ID para enviarle el mensaje.
-        userRepositoryPort.findById(deliveryUserId).ifPresent(user -> {
-            messagingTemplate.convertAndSendToUser(user.getEmail(), "/orders", event);
-        });
+        // Enviar el mensaje a /queue/orders utilizando deliveryUserId.toString() como el Principal Name directamente, sin consultar el repositorio.
+        messagingTemplate.convertAndSendToUser(deliveryUserId.toString(), "/queue/orders", event);
     }
 }

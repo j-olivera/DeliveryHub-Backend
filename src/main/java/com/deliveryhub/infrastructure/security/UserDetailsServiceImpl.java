@@ -38,9 +38,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         com.deliveryhub.domain.model.User user = userRepositoryPort.findByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + username));
 
-        return new org.springframework.security.core.userdetails.User(
+        return new CustomUserDetails(
+                user.getId(),
                 user.getEmail(),
                 user.getPassword(),
+                user.isActive(),
                 Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + user.getRole().name()))
         );
     }
