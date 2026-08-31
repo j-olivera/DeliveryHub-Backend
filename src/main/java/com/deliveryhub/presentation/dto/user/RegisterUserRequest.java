@@ -22,9 +22,5 @@ public record RegisterUserRequest(
     String email,
 
     @NotBlank(message = "Password cannot be blank")
-    String password,
-
-    @NotBlank(message = "Role cannot be blank")
-    @Pattern(regexp = "ADMIN|DELIVERY", message = "Invalid role")
-    String role
+    String password
 ) {}

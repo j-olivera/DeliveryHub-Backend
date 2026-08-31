@@ -54,8 +54,7 @@ class UserControllerTest {
         RegisterUserRequest request = new RegisterUserRequest(
             "Alice",
             "alice@example.com",
-            "pwd123",
-            "DELIVERY"
+            "pwd123"
         );
         UUID userId = UUID.randomUUID();
         User createdUser = User.reconstruct(userId, "Alice", "alice@example.com", "pwd123", UserRole.DELIVERY);
@@ -79,8 +78,7 @@ class UserControllerTest {
         RegisterUserRequest request = new RegisterUserRequest(
             "",
             "alice@example.com",
-            "pwd123",
-            "DELIVERY"
+            "pwd123"
         );
 
         mockMvc.perform(post("/api/v1/users")
@@ -96,8 +94,7 @@ class UserControllerTest {
         RegisterUserRequest request = new RegisterUserRequest(
             "Alice",
             " ",
-            "pwd123",
-            "DELIVERY"
+            "pwd123"
         );
 
         mockMvc.perform(post("/api/v1/users")
@@ -111,8 +108,7 @@ class UserControllerTest {
         RegisterUserRequest request = new RegisterUserRequest(
             "Alice",
             "invalid-email",
-            "pwd123",
-            "DELIVERY"
+            "pwd123"
         );
 
         mockMvc.perform(post("/api/v1/users")
@@ -126,38 +122,7 @@ class UserControllerTest {
         RegisterUserRequest request = new RegisterUserRequest(
             "Alice",
             "alice@example.com",
-            "",
-            "DELIVERY"
-        );
-
-        mockMvc.perform(post("/api/v1/users")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(request)))
-                .andExpect(status().isBadRequest());
-    }
-
-    @Test
-    void registerUser_whenRoleIsBlank_shouldReturn400BadRequest() throws Exception {
-        RegisterUserRequest request = new RegisterUserRequest(
-            "Alice",
-            "alice@example.com",
-            "pwd123",
             ""
-        );
-
-        mockMvc.perform(post("/api/v1/users")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(request)))
-                .andExpect(status().isBadRequest());
-    }
-
-    @Test
-    void registerUser_whenRoleIsInvalid_shouldReturn400BadRequest() throws Exception {
-        RegisterUserRequest request = new RegisterUserRequest(
-            "Alice",
-            "alice@example.com",
-            "pwd123",
-            "INVALID_ROLE"
         );
 
         mockMvc.perform(post("/api/v1/users")
@@ -171,8 +136,7 @@ class UserControllerTest {
         RegisterUserRequest request = new RegisterUserRequest(
             "Alice",
             "alice@example.com",
-            "pwd123",
-            "DELIVERY"
+            "pwd123"
         );
 
         when(registerUserUseCase.execute(any()))
@@ -191,8 +155,7 @@ class UserControllerTest {
         RegisterUserRequest request = new RegisterUserRequest(
             "Alice",
             "alice@example.com",
-            "pwd123",
-            "DELIVERY"
+            "pwd123"
         );
 
         when(registerUserUseCase.execute(any()))

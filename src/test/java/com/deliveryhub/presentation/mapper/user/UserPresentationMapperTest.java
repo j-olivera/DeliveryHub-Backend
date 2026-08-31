@@ -20,8 +20,7 @@ class UserPresentationMapperTest {
         RegisterUserRequest request = new RegisterUserRequest(
             "John Doe",
             "john@example.com",
-            "password123",
-            "ADMIN"
+            "password123"
         );
 
         // Act
@@ -32,7 +31,7 @@ class UserPresentationMapperTest {
         assertEquals(request.name(), result.name());
         assertEquals(request.email(), result.email());
         assertEquals(request.password(), result.password());
-        assertEquals(request.role(), result.role());
+        assertEquals("DELIVERY", result.role());
     }
 
     @Test

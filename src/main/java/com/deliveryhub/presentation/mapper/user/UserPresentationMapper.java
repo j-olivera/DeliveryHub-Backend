@@ -26,7 +26,7 @@ public class UserPresentationMapper {
             request.name(),
             request.email(),
             request.password(),
-            request.role()
+            "DELIVERY"
         );
     }
 

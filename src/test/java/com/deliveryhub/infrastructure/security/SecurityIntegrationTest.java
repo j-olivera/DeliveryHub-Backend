@@ -59,7 +59,7 @@ class SecurityIntegrationTest {
         when(registerUserUseCase.execute(any())).thenReturn(user);
         mockMvc.perform(post("/api/v1/users")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"name\":\"Alice\",\"email\":\"alice@test.com\",\"password\":\"pwd\",\"role\":\"DELIVERY\"}"))
+                        .content("{\"name\":\"Alice\",\"email\":\"alice@test.com\",\"password\":\"pwd\"}"))
                 .andExpect(status().isCreated());
     }
 
